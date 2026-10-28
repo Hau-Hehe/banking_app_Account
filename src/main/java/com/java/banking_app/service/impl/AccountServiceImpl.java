@@ -19,8 +19,23 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDTO createAccount(AccountDTO accountDTO) {
-        Account account = AccountMapper.mapToAccount(accountDTO);
+        Account account = accountMapper.mapToAccount(accountDTO);
         Account accountSaved = accountRepository.save(account);
-        return AccountMapper.mapToAccountDTO(accountSaved);
+        return accountMapper.mapToAccountDTO(accountSaved);
+    }
+
+    @Override
+    public AccountDTO getAccountById(Long id) {
+        Account account =  accountRepository.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));
+        return accountMapper.mapToAccountDTO(account);
+    }
+
+    @Override
+    public AccountDTO deposit(Long id, double amount) {
+        Account account = accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account not found"));
+        double total = account.getBalance() + amount;
+        account.setBalance(total);
+        Account savedBalance = accountRepository.save(account);
+        return accountMapper.mapToAccountDTO(savedBalance);
     }
 }

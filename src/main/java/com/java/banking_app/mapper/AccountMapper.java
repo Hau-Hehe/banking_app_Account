@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AccountMapper {
-    public static Account mapToAccount(AccountDTO accountDTO) {
+    public Account mapToAccount(AccountDTO accountDTO) {
         Account account = new Account(
                 accountDTO.getId(),
                 accountDTO.getAccountHolderName(),
@@ -15,7 +15,7 @@ public class AccountMapper {
         return account;
     }
 
-    public static AccountDTO mapToAccountDTO(Account account) {
+    public AccountDTO mapToAccountDTO(Account account) {
         AccountDTO accountDTO = new AccountDTO(
                 account.getId(),
                 account.getAccountHolderName(),
